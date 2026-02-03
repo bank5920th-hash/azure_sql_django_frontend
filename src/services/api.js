@@ -59,3 +59,12 @@ export const reviewService = {
 export default api;
 
 
+export const getApiConfig = () => {
+  const baseURL = api.defaults.baseURL;
+  const isLocal = baseURL.includes('127.0.0.1') || baseURL.includes('localhost');
+  return {
+    isLocal,
+    name: isLocal ? 'Local API' : 'Azure API',
+    baseURL
+  };
+};

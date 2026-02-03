@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { LayoutDashboard, Store, ShoppingBag, Users, ShoppingCart, MessageSquare, Zap } from 'lucide-react';
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { getApiConfig } from '../services/api';
 
 export function cn(...inputs) {
     return twMerge(clsx(inputs));
@@ -34,6 +35,8 @@ const Layout = ({ children }) => {
         { label: 'Users', to: '/users', icon: Users },
     ];
 
+    const apiConfig = getApiConfig();
+
     return (
         <div className="flex min-h-screen bg-background text-white selection:bg-accent/30 selection:text-accent">
             {/* Sidebar */}
@@ -60,6 +63,13 @@ const Layout = ({ children }) => {
                 </div>
 
                 <div className="absolute bottom-0 w-full p-6 border-t border-slate-800 bg-surface/30">
+                    <div className="flex items-center gap-3 mb-4">
+                        <div className={cn("w-2 h-2 rounded-full animate-pulse", apiConfig.isLocal ? "bg-green-500" : "bg-blue-500")} />
+                        <span className="text-xs font-medium text-slate-400">
+                            {apiConfig.name}
+                        </span>
+                    </div>
+
                     <div className="flex items-center gap-3">
                         <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-secondary to-accent" />
                         <div>
